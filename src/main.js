@@ -114,3 +114,67 @@ function init() {
 }
 
 init();
+
+const loginModal = document.getElementById('login-modal');
+const adminPortal = document.getElementById('admin-portal');
+const landingContent = [document.querySelector('header'), ...document.querySelectorAll('main > section:not(#admin-portal)')];
+
+// --- 1. Toggle Modal ---
+document.getElementById('open-admin-btn').addEventListener('click', () => loginModal.classList.remove('hidden'));
+document.getElementById('close-modal').addEventListener('click', () => loginModal.classList.add('hidden'));
+
+// --- 2. Login Logic ---
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('admin-email').value;
+    const password = document.getElementById('admin-password').value;
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+        alert("Invalid credentials.");
+    } else {
+        loginModal.classList.add('hidden');
+        showAdminView(true);
+    }
+});
+
+// --- 3. View Management ---
+function showAdminView(isAdmin) {
+    if (isAdmin) {
+        adminPortal.classList.remove('hidden');
+        landingContent.forEach(el => el.classList.add('hidden'));
+    } else {
+        adminPortal.classList.add('hidden');
+        landingContent.forEach(el => el.classList.remove('hidden'));
+    }
+}
+
+// --- 4. Admin Form Actions (Post Announcement Example) ---
+document.getElementById('post-announcement-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const { error } = await supabase.from('announcements').insert([{
+        title: formData.get('title'),
+        category: formData.get('category'),
+        content: formData.get('content')
+    }]);
+
+    if (!error) {
+        alert("Announcement posted!");
+        e.target.reset();
+        fetchAnnouncements(); // Refresh the list
+    }
+});
+
+// --- 5. Logout ---
+document.getElementById('logout-btn').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    showAdminView(false);
+});
+
+// --- 6. Persist Login State ---
+supabase.auth.onAuthStateChange((event, session) => {
+    if (session) showAdminView(true);
+    else showAdminView(false);
+});

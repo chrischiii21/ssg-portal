@@ -34,6 +34,24 @@
     }
   </style>
 </head>
+<div id="login-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center px-4 bg-[#800000]/20 backdrop-blur-md">
+    <div class="glass w-full max-w-md p-8 rounded-[2.5rem] shadow-2xl border border-white">
+        <div class="text-center mb-8">
+            <h3 class="text-2xl font-extrabold text-[#800000]">Officer Access</h3>
+            <p class="text-slate-500 text-sm">Enter credentials to manage the portal.</p>
+        </div>
+        <form id="login-form" class="space-y-4">
+            <input type="email" id="admin-email" placeholder="Email Address" required 
+                   class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#800000] outline-none transition-all">
+            <input type="password" id="admin-password" placeholder="Password" required 
+                   class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#800000] outline-none transition-all">
+            <button type="submit" class="w-full maroon-gradient text-white font-black py-4 rounded-xl shadow-lg hover:scale-[1.02] transition-all uppercase tracking-widest">
+                Login
+            </button>
+            <button type="button" id="close-modal" class="w-full text-slate-400 text-xs font-bold uppercase tracking-widest mt-4 hover:text-[#800000]">Cancel</button>
+        </form>
+    </div>
+</div>
 
 <body class="mesh-bg text-slate-900 selection:bg-[#800000] selection:text-white">
 
@@ -49,12 +67,10 @@
   </div>
 </div>
       <div class="flex items-center gap-4 sm:gap-8 text-[9px] sm:text-[11px] font-bold uppercase tracking-widest">
-        <a href="#announcements"
-          class="hidden sm:block text-slate-600 hover:text-[#800000] transition-colors">Bulletin</a>
-        <a href="#complaints"
-          class="maroon-gradient text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">Report
-          Issue</a>
-      </div>
+    <a href="#announcements" class="hidden sm:block text-slate-600 hover:text-[#800000] transition-colors">Bulletin</a>
+    <button id="open-admin-btn" class="text-slate-600 hover:text-[#800000] transition-colors cursor-pointer">Admin</button>
+    <a href="#complaints" class="maroon-gradient text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">Report Issue</a>
+</div>
     </nav>
   </div>
 
@@ -75,6 +91,36 @@
     </div>
   </header>
 
+  <section id="admin-portal" class="hidden pt-40 pb-20">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-12 gap-4">
+            <h2 class="text-4xl font-black text-[#800000]">Admin Dashboard</h2>
+            <button id="logout-btn" class="bg-slate-200 text-slate-600 px-6 py-2 rounded-xl font-bold hover:bg-[#800000] hover:text-white transition-all">Logout</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="glass p-8 rounded-[2.5rem] border border-white">
+                <h4 class="text-xl font-extrabold text-[#800000] mb-6">📢 Post Announcement</h4>
+                <form id="post-announcement-form" class="space-y-4">
+                    <input type="text" name="title" placeholder="Title" required class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
+                    <input type="text" name="category" placeholder="Category (e.g. Academic)" class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
+                    <textarea name="content" placeholder="Content details..." required class="w-full p-4 rounded-xl border border-slate-100 bg-white/50 h-32"></textarea>
+                    <button type="submit" class="w-full maroon-gradient text-white py-4 rounded-xl font-bold">Post to Bulletin</button>
+                </form>
+            </div>
+
+            <div class="glass p-8 rounded-[2.5rem] border border-white">
+                <h4 class="text-xl font-extrabold text-[#800000] mb-6">⚖️ Add Financial Report</h4>
+                <form id="add-transparency-form" class="space-y-4">
+                    <input type="text" name="project_name" placeholder="Project Name" required class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
+                    <input type="number" name="amount_spent" placeholder="Amount (₱)" required class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
+                    <input type="date" name="report_date" required class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
+                    <button type="submit" class="w-full maroon-gradient text-white py-4 rounded-xl font-bold">Publish Report</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
   <main class="container mx-auto pb-20 sm:pb-32 px-4 sm:px-6 space-y-20 sm:space-y-32">
 
     <section id="announcements">
