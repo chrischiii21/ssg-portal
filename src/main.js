@@ -1,36 +1,31 @@
-import './style.css'
+import './style.css'; // This ensures your Maroon/Yellow styles load
+import { createClient } from '@supabase/supabase-js';
 
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-import { supabase } from './lib/supabaseClient'
+// 1. Database Configuration (Only define these ONCE)
+const supabaseUrl = 'https://kzdjchmdriobvnmomdlp.supabase.co'; // From your dashboard
+const supabaseKey = 'sb_publishable_lSEYt438K1_BcoNdYhAbyA_cZSVAEep'; // From your logs
 
-const supabaseUrl = 'https://kzdjchmdriobvnmomdlp.supabase.co'
-const supabaseKey = 'sb_publishable_lSEYt438K1_BcoNdYhAbyA_cZSVAEep'
+// 2. Initialize the client
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
-export const supabase = createClient(supabaseUrl, supabaseKey)
-
-async function getAnnouncements() {
+// 3. Logic to load announcements
+async function fetchAnnouncements() {
   const { data, error } = await supabase
     .from('announcements')
     .select('*')
-    .order('created_at', { ascending: false })
+    .order('created_at', { ascending: false });
 
-  if (error) {
-    console.error('Error fetching announcements:', error)
-    return
+  const list = document.getElementById('announcement-list');
+  if (data && list) {
+    list.innerHTML = data.map(item => `
+            <div class="bg-white p-6 rounded-3xl shadow-sm border-2 border-[#800000]/10 hover:border-[#800000] transition-all">
+                <span class="text-[10px] font-black uppercase text-[#800000] tracking-widest">${item.category || 'General'}</span>
+                <h3 class="text-xl font-bold mt-1 text-slate-800">${item.title}</h3>
+                <p class="text-slate-600 mt-2 text-sm">${item.content}</p>
+            </div>
+        `).join('');
   }
-
-  const container = document.querySelector('#announcement-feed')
-  container.innerHTML = data.map(news => `
-    <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition">
-      <div class="flex items-center gap-2 mb-2">
-        <span class="px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded-full uppercase">${news.category}</span>
-        <span class="text-xs text-slate-400">${new Date(news.created_at).toLocaleDateString()}</span>
-      </div>
-      <h3 class="text-xl font-bold text-slate-800">${news.title}</h3>
-      <p class="mt-2 text-slate-600 leading-relaxed">${news.content}</p>
-    </div>
-  `).join('')
 }
 
-// Run it!
-getAnnouncements()
+// Start fetching
+fetchAnnouncements();
