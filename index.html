@@ -1,13 +1,126 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ssg-portal</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSG Unified Portal</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    /* Custom scrollbar and smooth scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #800000;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 font-sans text-slate-900">
+
+  <nav class="bg-[#800000] border-b-4 border-[#FFFD82] sticky top-0 z-50 shadow-2xl">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div
+          class="w-10 h-10 bg-[#FFFD82] text-[#800000] rounded-full flex items-center justify-center font-black text-xl">
+          S</div>
+        <div class="text-[#FFFD82]">
+          <h1 class="text-xl font-black uppercase leading-none">SSG Hub</h1>
+          <p class="text-[10px] tracking-widest font-bold opacity-80 uppercase">Unified System</p>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center space-x-6 text-[#FFFD82] font-bold text-xs tracking-widest uppercase">
+        <a href="#announcements" class="hover:text-white">Bulletin</a>
+        <a href="#transparency" class="hover:text-white">Transparency</a>
+        <a href="#org-chart" class="hover:text-white">Council</a>
+        <a href="#complaints"
+          class="bg-[#FFFD82] text-[#800000] px-4 py-2 rounded-full hover:bg-white transition-all">File Complaint</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="bg-[#800000] py-20 px-6 text-center border-b-8 border-[#FFFD82] relative overflow-hidden">
+    <div class="container mx-auto relative z-10">
+      <h2 class="text-5xl md:text-7xl font-black text-white mb-6 drop-shadow-lg">
+        Service. Integrity. <span class="text-[#FFFD82] italic">Unity.</span>
+      </h2>
+      <p class="text-[#FFFD82] text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed opacity-90">
+        The official digital portal of the Supreme Student Government. Access reports and stay updated.
+      </p>
+    </div>
+    <div class="absolute -top-24 -right-24 w-64 h-64 bg-white/5 rounded-full"></div>
+  </header>
+
+  <main class="container mx-auto py-16 px-6 space-y-24">
+
+    <section id="announcements">
+      <div class="flex items-center gap-4 mb-10">
+        <h3 class="text-4xl font-black text-[#800000] uppercase tracking-tighter italic">Announcements</h3>
+        <div class="h-1 flex-grow bg-[#800000]/10 rounded-full"></div>
+      </div>
+      <div id="announcement-list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white border-2 border-slate-200 p-8 rounded-3xl shadow-sm text-slate-500 italic">
+          Connecting to SSG Database...
+        </div>
+      </div>
+    </section>
+
+    <div class="grid lg:grid-cols-3 gap-16">
+      <div id="transparency" class="lg:col-span-2">
+        <h3 class="text-3xl font-bold text-[#800000] mb-8 flex items-center gap-3 italic">⚖️ Transparency Reports</h3>
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-[#800000]/10">
+          <table class="w-full text-left">
+            <thead class="bg-[#800000] text-[#FFFD82] uppercase text-[11px] font-black tracking-widest">
+              <tr>
+                <th class="px-8 py-5">Project Name</th>
+                <th class="px-8 py-5 text-right">Allocation</th>
+                <th class="px-8 py-5 text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody id="transparency-list" class="divide-y divide-slate-100 font-medium text-slate-700">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <aside id="org-chart">
+        <h3 class="text-3xl font-bold text-[#800000] mb-8 italic">👥 Core Officers</h3>
+        <div id="officer-list" class="space-y-4">
+        </div>
+      </aside>
+    </div>
+
+    <section id="complaints" class="bg-[#800000] rounded-[3rem] p-10 md:p-16 shadow-2xl text-white">
+      <div class="max-w-2xl mx-auto text-center mb-10">
+        <h3 class="text-4xl font-black text-[#FFFD82] mb-4 uppercase">File a Concern</h3>
+        <p class="opacity-80">Submit your reports directly to the council core members.</p>
+      </div>
+      <form id="complaint-form" class="max-w-2xl mx-auto space-y-6">
+        <input type="text" name="subject" placeholder="Subject" required
+          class="w-full p-4 rounded-xl bg-white/10 border-2 border-white/20 focus:border-[#FFFD82] outline-none text-white placeholder:text-white/40">
+        <textarea name="description" placeholder="Describe your concern..." required
+          class="w-full p-4 rounded-xl bg-white/10 border-2 border-white/20 focus:border-[#FFFD82] outline-none h-40 text-white placeholder:text-white/40"></textarea>
+        <button type="submit"
+          class="w-full bg-[#FFFD82] text-[#800000] font-black py-4 rounded-xl hover:scale-[1.02] transition-all uppercase tracking-widest">Submit
+          Report</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-900 py-12 text-center border-t-8 border-[#FFFD82]">
+    <p class="text-white font-black uppercase tracking-tighter">Supreme Student Government</p>
+    <p class="text-[#FFFD82] text-xs mt-2 italic opacity-70">"Service. Integrity. Unity."</p>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+
 </html>
