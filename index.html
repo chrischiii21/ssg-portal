@@ -54,7 +54,18 @@
 </div>
 
 <body class="mesh-bg text-slate-900 selection:bg-[#800000] selection:text-white">
-
+<div id="success-modal" class="fixed inset-0 z-[150] hidden flex items-center justify-center px-4 bg-[#800000]/20 backdrop-blur-sm transition-all duration-300">
+    <div class="glass w-full max-w-sm p-8 rounded-[2.5rem] shadow-2xl border border-white text-center transform scale-95 transition-transform duration-300" id="success-modal-content">
+        <div class="w-20 h-20 bg-[#FFFD82] rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg rotate-3">
+            <span class="text-3xl text-[#800000]">✅</span>
+        </div>
+        <h3 class="text-2xl font-black text-[#800000] uppercase tracking-tighter mb-2" id="modal-title">Success!</h3>
+        <p class="text-slate-500 text-sm font-medium leading-relaxed mb-8" id="modal-message">Your entry has been successfully recorded in the portal.</p>
+        <button id="close-success-modal" class="w-full maroon-gradient text-white font-black py-4 rounded-xl shadow-lg hover:scale-[1.02] active:scale-95 transition-all uppercase tracking-widest text-xs">
+            Continue
+        </button>
+    </div>
+</div>
   <div class="fixed top-4 w-full z-50 px-2 sm:px-4">
     <nav
       class="container mx-auto glass rounded-2xl shadow-xl border border-white/50 px-4 sm:px-6 py-3 flex justify-between items-center">
@@ -110,16 +121,117 @@
             </div>
 
             <div class="glass p-8 rounded-[2.5rem] border border-white">
-                <h4 class="text-xl font-extrabold text-[#800000] mb-6">⚖️ Add Financial Report</h4>
-                <form id="add-transparency-form" class="space-y-4">
-                    <input type="text" name="project_name" placeholder="Project Name" required class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
-                    <input type="number" name="amount_spent" placeholder="Amount (₱)" required class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
-                    <input type="date" name="report_date" required class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
-                    <button type="submit" class="w-full maroon-gradient text-white py-4 rounded-xl font-bold">Publish Report</button>
-                </form>
-            </div>
+    <h4 class="text-xl font-extrabold text-[#800000] mb-6">⚖️ Add Financial Report</h4>
+    <form id="add-transparency-form" class="space-y-4">
+        <input type="text" name="project_name" placeholder="Project Name" required class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
+        <input type="number" name="amount_spent" placeholder="Amount (₱)" required class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
+        <input type="url" name="proposal_link" placeholder="Budget Proposal Link (e.g., Google Drive)" class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
+        <input type="date" name="report_date" required class="w-full p-4 rounded-xl border border-slate-100 bg-white/50">
+        <button type="submit" class="w-full maroon-gradient text-white py-4 rounded-xl font-bold">Publish Report</button>
+    </form>
+</div>
+            <div class="glass p-8 rounded-[2.5rem] border border-white md:col-span-2">
+    <h4 class="text-xl font-extrabold text-[#800000] mb-6">👥 Manage Council & Hierarchy</h4>
+    <form id="add-officer-form" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <input type="text" name="name" placeholder="Full Name" required class="p-4 rounded-xl border border-slate-100 bg-white/50">
+        
+        <select name="position" required class="p-4 rounded-xl border border-slate-100 bg-white/50 text-slate-500 w-full">
+    <option value="" disabled selected>Select Position</option>
+    
+    <optgroup label="Advisers">
+        <option value="Adviser">Adviser</option>
+        <option value="Assistant Adviser">Assistant Adviser</option>
+    </optgroup>
+    
+    <optgroup label="Executive Board">
+        <option value="President">President</option>
+        <option value="Vice President">Vice President</option>
+    </optgroup>
+    
+    <optgroup label="Legislative (Senators)">
+        <option value="CAS Senator">CAS Senator</option>
+        <option value="COTE Senator">COTE Senator</option>
+        <option value="CHMT Senator">CHMT Senator</option>
+        <option value="CAFE Senator">CAFE Senator</option>
+        <option value="COED Senator">COED Senator</option>
+    </optgroup>
+    
+    <optgroup label="Departmental HRs">
+        <option value="BSP HR">BSP HR</option>
+        <option value="BAEL HR">BAEL HR</option>
+        <option value="BALIT HR">BALIT HR</option>
+        <option value="BSIE HR">BSIE HR</option>
+        <option value="BSIT HR">BSIT HR</option>
+        <option value="BIT-AT HR">BIT-AT HR</option>
+        <option value="BIT-CT HR">BIT-CT HR</option>
+        <option value="BIT-ET HR">BIT-ET HR</option>
+        <option value="BIT-GT HR">BIT-GT HR</option>
+        <option value="BIT-DT HR">BIT-DT HR</option>
+        <option value="BSTM HR">BSTM HR</option>
+        <option value="BSHM HR">BSHM HR</option>
+        <option value="BSA HR">BSA HR</option>
+        <option value="BSF HR">BSF HR</option>
+        <option value="BSES HR">BSES HR</option>
+        <option value="BSED Math HR">BSED Math HR</option>
+        <option value="BEED HR">BEED HR</option>
+        <option value="BTLED HR">BTLED HR</option>
+        <option value="BSED English HR">BSED English HR</option>
+    </optgroup>
+    
+    <optgroup label="Secretariat & Finance">
+        <option value="Executive Secretary">Executive Secretary</option>
+        <option value="Deputy Executive Secretary">Deputy Executive Secretary</option>
+        <option value="Press Secretary">Press Secretary</option>
+        <option value="Deputy Press Secretary">Deputy Press Secretary</option>
+        <option value="Executive Secretary of Finance">Executive Secretary of Finance</option>
+        <option value="Deputy Secretary of Finance">Deputy Secretary of Finance</option>
+        <option value="Secretary on Audit">Secretary on Audit</option>
+    </optgroup>
+    
+    <optgroup label="Committees & Directors">
+        <option value="Mass Media Director">Mass Media Director</option>
+        <option value="Graphics Committee">Graphics Committee</option>
+        <option value="Documentation Officer">Documentation Officer</option>
+        <option value="Technical Committee">Technical Committee</option>
+        <option value="Events and Planning Committee">Events and Planning Committee</option>
+        <option value="Design Officer">Design Officer</option>
+        <option value="Logistics Committee">Logistics Committee</option>
+        <option value="Linkage Committee">Linkage Committee</option>
+    </optgroup>
+</select>
+
+        <input type="text" name="photo_url" placeholder="Photo URL (Optional)" class="p-4 rounded-xl border border-slate-100 bg-white/50">
+        
+        <button type="submit" class="md:col-span-3 maroon-gradient text-white py-4 rounded-xl font-bold shadow-lg">
+            Add Officer to Hierarchy
+        </button>
+    </form>
+</div>
+
         </div>
+        <div class="glass p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border border-white md:col-span-2 mt-4">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
+        <h4 class="text-xl font-extrabold text-[#800000]">📩 Student Complaints Inbox</h4>
+        <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 italic">Confidential Reports</span>
     </div>
+    
+    <div class="overflow-x-auto">
+        <table class="w-full text-left min-w-[600px]">
+            <thead class="text-slate-400 text-[10px] font-black uppercase tracking-widest border-b border-slate-100">
+                <tr>
+                    <th class="px-4 py-4">Category</th>
+                    <th class="px-4 py-4">Subject</th>
+                    <th class="px-4 py-4">Message Details</th>
+                    <th class="px-4 py-4 text-center">Status</th>
+                </tr>
+            </thead>
+            <tbody id="admin-complaints-list" class="divide-y divide-slate-100">
+                </tbody>
+        </table>
+    </div>
+</div>
+    </div>
+    
 </section>
   <main class="container mx-auto pb-20 sm:pb-32 px-4 sm:px-6 space-y-20 sm:space-y-32">
 
